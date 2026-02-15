@@ -3,7 +3,6 @@ package com.io.docker.spring.springdockerapp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -15,7 +14,12 @@ public class SpringDockerAppApplication {
     }
 
     @GetMapping("/")
-    public String dockerWorld() {
-        return "Hello Docker World";
+    public String welcome() {
+        return "Welcome Everyone !";
+    }
+
+    @GetMapping("/cicd")
+    public String getCICDMessage() {
+        return "Welcome to the world of CICD - The Hot Topic in the market !";
     }
 }

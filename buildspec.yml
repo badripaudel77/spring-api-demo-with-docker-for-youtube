@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21 # Specifies Amazon Corretto 21
+    commands:
+      - echo "Installing Maven dependencies..."
+      - mvn install -DskipTests  # Installs Maven dependencies without running tests
+
+  pre_build:
+    commands:
+      - echo "Verifying Java version..."
+      - java -version  # Verifies that Java is correctly installed
+
+  build:
+    commands:
+      - echo "Build started on `date`"
+      - mvn clean package  # Builds the application and packages it into a .jar file
+
+  post_build:
+    commands:
+      - echo "Build completed on `date`"  # Prints completion time
+
+artifacts:
+  files:
+    - 'target/*.jar'  # Includes the .jar file created by Maven
+    - 'appspec.yml'   # Includes the CodeDeploy appspec.yml (for deployment)
+  discard-paths: yes  # Discards the directory structure, only includes the files
+
+cache:
+  paths:
+    - '/root/.m2/**/*'  # Caches Maven dependencies to speed up future builds
